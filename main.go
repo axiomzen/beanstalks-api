@@ -3,13 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
 
 	"github.com/axiomzen/beanstalks-api/config"
 	"github.com/axiomzen/beanstalks-api/data"
+	"github.com/axiomzen/beanstalks-api/model"
+	"github.com/axiomzen/beanstalks-api/server"
 	"github.com/gorilla/mux"
 )
 
@@ -80,32 +81,19 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("Starting Beanstalk API...")
 
-	// Connect to DB
-	db := data.New(config.FromEnv())
-	fmt.Printf("Connected to db: %v", db)
+	// Create server
+	serv := server.New(config.FromEnv())
+	serv.Start()
+}
 
-	r := mux.NewRouter()
-
-	user1 := User{
-		ID:    "1",
-		First: "Daniel",
-		Last:  "Anatolie",
+// Run tests against the DB
+func test(db *data.DAL) {
+	user := &model.User{
+		Name:           "Bruno",
+		Email:          "bruno.bachmann@dapperlabs.com",
+		HashedPassword: "blablabla",
+		Tags:           []string{"Back-end", "Engineering"},
 	}
 
-	user2 := User{
-		ID:    "2",
-		First: "TestUser",
-		Last:  "TestUser",
-	}
-
-	users = append(users, user1)
-	users = append(users, user2)
-
-	r.HandleFunc("/api/users", getUsers).Methods("GET")
-	r.HandleFunc("/api/users/{id}", getUser).Methods("GET")
-	r.HandleFunc("/api/users", createUser).Methods("POST")
-	r.HandleFunc("/api/users/{id}", updateUser).Methods("PUT")
-	r.HandleFunc("/api/users/{id}", deleteUser).Methods("DELETE")
-
-	log.Fatal(http.ListenAndServe(":8000", r))
+	db.CreateUser(user)
 }
