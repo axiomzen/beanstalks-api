@@ -1,0 +1,14 @@
+package: github.com/axiomzen/beanstalks-api
+import:
+- package: github.com/go-delve/delve
+  version: v1.2.0
+  subpackages:
+  - pkg/config
+- package: github.com/go-pg/pg
+  version: v8.0.4
+  subpackages:
+  - orm
+- package: github.com/gorilla/mux
+  version: v1.7.2
+- package: github.com/sirupsen/logrus
+  version: v1.4.2

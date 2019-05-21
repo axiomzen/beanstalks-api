@@ -1,0 +1,41 @@
+hash: 76d0eb7994f17cbd80ea3a217fa6edf9ccf66e25f4b5636d9c5092e7f3985f19
+updated: 2019-05-21T12:08:51.040938-07:00
+imports:
+- name: github.com/go-delve/delve
+  version: 86d4b0b9915d55833a99bfb4c8b3a138f03ab802
+  subpackages:
+  - pkg/config
+- name: github.com/go-pg/pg
+  version: 11cb265cd96c769490bea4cdc3634ea2049197f6
+  subpackages:
+  - internal
+  - internal/iszero
+  - internal/parser
+  - internal/pool
+  - internal/struct_filter
+  - internal/tag
+  - orm
+  - types
+- name: github.com/gorilla/mux
+  version: ed099d42384823742bba0bf9a72b53b55c9e2e38
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/konsorten/go-windows-terminal-sequences
+  version: f55edac94c9bbba5d6182a4be46d86a2c9b5b50e
+- name: github.com/sirupsen/logrus
+  version: 839c75faf7f98a33d445d181f3018b5c3409a45e
+- name: golang.org/x/crypto
+  version: fd5f17ee729917fcb39f16421460212d917a0813
+  subpackages:
+  - pbkdf2
+  - ssh
+- name: golang.org/x/sys
+  version: 8883426083c04a2627e6e59d84d5f6fb63d16c91
+  subpackages:
+  - unix
+  - windows
+- name: gopkg.in/yaml.v2
+  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
+- name: mellium.im/sasl
+  version: 2a61779921b6e437e546b15bd4d92331e593ff75
+testImports: []
