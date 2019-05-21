@@ -6,7 +6,7 @@ import (
 	"github.com/axiomzen/beanstalks-api/config"
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 // DAL represents the data abstraction layer and provides an interface to the
@@ -30,9 +30,10 @@ func New(c *config.Config) *DAL {
 	db := pg.Connect(opts)
 	dal := &DAL{db}
 
-	err := dal.Ping()
-	if err != nil {
-		log.WithError(err).Fatal("Error initializing the database")
+	if err := dal.Ping(); err != nil {
+		logrus.WithError(err).Fatal("Error initializing the database")
+	} else {
+		logrus.Info("Successfully connected to the database")
 	}
 
 	return dal
