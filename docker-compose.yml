@@ -1,12 +1,13 @@
-version: "3"
+version: '3'
 
 services:
+
   postgres:
     image: postgres:10
     volumes:
       - .pgdata:/var/lib/postgresql/data
-      - ./schema:/var/beanstalk
-    ports:
+      -  ./schema/tables.sql:/docker-entrypoint-initdb.d/init.sql
+      ports:
       - 9876:5432
     environment:
       - POSTGRES_USER=beanstalk
