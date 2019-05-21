@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/axiomzen/beanstalks-api/config"
+	"github.com/axiomzen/beanstalks-api/data"
 	"github.com/gorilla/mux"
 )
 
@@ -36,6 +39,12 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("Starting Beanstalk API...")
+
+	// Connect to DB
+	db := data.New(config.FromEnv())
+	fmt.Printf("Connected to db: %v", db)
+
 	r := mux.NewRouter()
 
 	user1 := User{
