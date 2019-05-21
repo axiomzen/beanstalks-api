@@ -1,4 +1,4 @@
-package models
+package schema
 
 type Track struct {
 	Id       string    `json:"id"`
