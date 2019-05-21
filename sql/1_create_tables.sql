@@ -1,7 +1,7 @@
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     hashed_password TEXT NOT NULL,
     tags TEXT[],
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (now() at time zone 'utc')
@@ -15,10 +15,11 @@ CREATE TABLE tracks (
 );
 
 CREATE TABLE stages (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY UNIQUE,
     track_id INTEGER NOT NULL REFERENCES tracks(id),
+    level INTEGER NOT NULL,
     description TEXT NOT NULL,
-    level INTEGER NOT NULL
+    PRIMARY KEY (track_id, level)
 );
 
 CREATE TABLE assessments (

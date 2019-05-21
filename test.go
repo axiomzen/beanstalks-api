@@ -21,7 +21,7 @@ func runTests(db *data.DAL) {
 	// Add a user to the DB directly
 	user := &model.User{
 		Name:           "Bruno",
-		Email:          "bruno.bachmann@dapperlabs.com",
+		Email:          "bruno.test@dapperlabs.com",
 		HashedPassword: "blablabla",
 		Tags:           []string{"Back-end", "Engineering"},
 	}
