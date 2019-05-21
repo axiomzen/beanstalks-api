@@ -29,7 +29,7 @@ func New(c *config.Config) *Server {
 
 	// Attatch request handlers
 	r.HandleFunc("/api/users", s.getUser).Methods("GET")
-
+	r.HandleFunc("/signin", data.Signin).Methods("POST")
 	return s
 }
 
