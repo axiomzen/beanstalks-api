@@ -31,6 +31,7 @@ func New(c *config.Config) *Server {
 	r.HandleFunc("/me", wrap(s.me, s.authenticate, s.logIt, s.recover)).Methods("GET")
 	r.HandleFunc("/signup", wrap(s.signUp, s.logIt, s.recover)).Methods("POST")
 	r.HandleFunc("/signin", wrap(s.signIn, s.logIt, s.recover)).Methods("POST")
+	r.HandleFunc("/assessments", wrap(s.getAssessments, s.authenticate, s.logIt, s.recover)).Methods("GET")
 
 	return s
 }
