@@ -22,7 +22,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - TEST=true
+      - TEST=false
       - BEANSTALK_HOST=localhost
       - BEANSTALK_PORT=8080
       - BEANSTALK_POSTGRESHOST=postgres
@@ -30,3 +30,4 @@ services:
       - BEANSTALK_POSTGRESUSER=beanstalk
       - BEANSTALK_POSTGRESPASS=beanstalk
       - BEANSTALK_POSTGRESDB=beanstalk
+      - BEANSTALK_SECRET=8yHUsDcRLLwnADfXBytpboFD

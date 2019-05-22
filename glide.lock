@@ -1,6 +1,8 @@
 hash: 76d0eb7994f17cbd80ea3a217fa6edf9ccf66e25f4b5636d9c5092e7f3985f19
-updated: 2019-05-21T12:08:51.040938-07:00
+updated: 2019-05-21T17:10:06.242422-07:00
 imports:
+- name: github.com/dgrijalva/jwt-go
+  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
 - name: github.com/go-delve/delve
   version: 86d4b0b9915d55833a99bfb4c8b3a138f03ab802
   subpackages:
@@ -27,15 +29,13 @@ imports:
 - name: golang.org/x/crypto
   version: fd5f17ee729917fcb39f16421460212d917a0813
   subpackages:
+  - bcrypt
+  - blowfish
   - pbkdf2
-  - ssh
 - name: golang.org/x/sys
   version: 8883426083c04a2627e6e59d84d5f6fb63d16c91
   subpackages:
   - unix
-  - windows
-- name: gopkg.in/yaml.v2
-  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 - name: mellium.im/sasl
   version: 2a61779921b6e437e546b15bd4d92331e593ff75
 testImports: []

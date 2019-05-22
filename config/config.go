@@ -6,6 +6,7 @@ import (
 
 // Config represents configuration options for the app.
 type Config struct {
+	Secret           []byte
 	Host             string
 	Port             string
 	PostgresHost     string
@@ -18,6 +19,7 @@ type Config struct {
 // FromEnv creates and returns a configuration object from the environment.
 func FromEnv() *Config {
 	return &Config{
+		Secret:           []byte(os.Getenv("BEANSTALK_SECRET")),
 		Host:             os.Getenv("BEANSTALK_HOST"),
 		Port:             os.Getenv("BEANSTALK_PORT"),
 		PostgresHost:     os.Getenv("BEANSTALK_POSTGRESHOST"),
