@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"runtime/debug"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )
@@ -42,6 +43,8 @@ func (s *Server) recover(next http.HandlerFunc) http.HandlerFunc {
 		defer func() {
 			if r := recover(); r != nil {
 				s.log.Errorf("recovered from error in request handler %v\n", r)
+				debug.PrintStack()
+				res.WriteHeader(http.StatusInternalServerError)
 			}
 		}()
 		next(res, req)

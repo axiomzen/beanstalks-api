@@ -55,3 +55,65 @@ func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
 	res.WriteHeader(http.StatusOK)
 	json.NewEncoder(res).Encode(payload)
 }
+
+type scorePayload struct {
+	TrackID int `sql:"track_id,pk" json:"trackId"`
+	StageID int `sql:"stage_id,pk" json:"stageId"`
+	Score   int `json:"score"`
+}
+
+type assessmentPayload struct {
+	UserID     int    `json:"userId"`
+	ReviewerID int    `json:"reviewerId"`
+	State      string `json:"state"`
+
+	Scores []*scorePayload `json:"scores"`
+}
+
+type postAssessmentRequest struct {
+	Assessment *assessmentPayload `json:"assessment"`
+}
+
+func (s *Server) postAssessment(res http.ResponseWriter, req *http.Request) {
+	assessmentReq := &postAssessmentRequest{}
+	if err := json.NewDecoder(req.Body).Decode(assessmentReq); err != nil {
+		s.log.WithError(err).Error("failed to decode assessment in request body")
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// create the assessment
+	assessment := &model.Assessment{
+		UserID:     assessmentReq.Assessment.UserID,
+		ReviewerID: assessmentReq.Assessment.ReviewerID,
+		State:      assessmentReq.Assessment.State,
+	}
+	if err := s.dal.CreateAssessment(assessment); err != nil {
+		s.log.WithError(err).Error("failed to insert new assessment")
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// get assessment so we have its ID
+	if err := s.dal.GetAssessmentByPK(assessment); err != nil {
+		s.log.WithError(err).Error("failed to fetch newly created assessment")
+		res.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// create scores for assessment
+	for _, score := range assessmentReq.Assessment.Scores {
+		if err := s.dal.CreateScore(&model.Score{
+			AssessmentID: assessment.ID,
+			TrackID:      score.TrackID,
+			StageID:      score.StageID,
+			Score:        score.Score,
+		}); err != nil {
+			s.log.WithError(err).Error("failed to create score for new assessment")
+			res.WriteHeader(http.StatusBadRequest)
+			return
+		}
+	}
+
+	res.WriteHeader(http.StatusCreated)
+}

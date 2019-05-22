@@ -9,3 +9,8 @@ func (dal *DAL) GetScoresByAssessmentID(assessmentID int, scores *model.Scores) 
 		Relation("Stage").
 		Select()
 }
+
+func (dal *DAL) CreateScore(score *model.Score) error {
+	_, err := dal.db.Model(score).Insert()
+	return err
+}
