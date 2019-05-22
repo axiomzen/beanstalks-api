@@ -44,7 +44,7 @@ func (s *Server) signUp(res http.ResponseWriter, req *http.Request) {
 	// Get the user so we have the ID we need to issue a token
 	s.dal.GetUserByEmail(user)
 
-	token, err := newSignedJWT(user.ID, "breanstalk", s.config.Secret)
+	token, err := newSignedJWT(user.ID, "beanstalk", s.config.Secret)
 	if err != nil {
 		s.log.WithError(err).Error("Failed to generate JWT for new user")
 		res.WriteHeader(http.StatusInternalServerError)
@@ -85,7 +85,7 @@ func (s *Server) signIn(res http.ResponseWriter, req *http.Request) {
 	}
 
 	// return token
-	token, err := newSignedJWT(user.ID, "breanstalk", s.config.Secret)
+	token, err := newSignedJWT(user.ID, "beanstalk", s.config.Secret)
 	if err != nil {
 		s.log.WithError(err).Error("Failed to generate JWT for new user")
 		res.WriteHeader(http.StatusInternalServerError)
