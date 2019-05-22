@@ -72,18 +72,20 @@ INSERT INTO stages (track_id, description, level) VALUES (
 );
 
 -- create users
-INSERT INTO users (name, email, hashed_password, tags) VALUES (
+INSERT INTO users (name, email, hashed_password, tags, role) VALUES (
     'Bruno Bachmann',
     'bruno.bachmann@dapperlabs.com',
     '$2a$04$lpV3TloLJSLyD9rpbwDcueQeRvD4JZqsZVHUbeE8UbOqasUQOZpp.',
-    '{"engineer","all"}'
+    '{"engineer","all"}',
+    'admin'
 );
 
-INSERT INTO users (name, email, hashed_password, tags) VALUES (
+INSERT INTO users (name, email, hashed_password, tags, role) VALUES (
     'Brant Hardy',
     'brant@dapperlabs.com',
     '$2a$04$lpV3TloLJSLyD9rpbwDcueQeRvD4JZqsZVHUbeE8UbOqasUQOZpp.',
-    '{"engineer","all"}'
+    '{"engineer","all"}',
+    'user'
 );
 
 -- create an assessment for the user
