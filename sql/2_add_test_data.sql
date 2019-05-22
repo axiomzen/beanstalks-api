@@ -97,21 +97,70 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
     (SELECT id FROM tracks where name='Coding'),
     1,
-    4
+    5
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
     (SELECT id FROM tracks where name='Coding'),
     2,
+    4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Coding'),
+    3,
+    3
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Coding'),
+    4,
     2
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
-    (SELECT id FROM tracks where name='Kaizen'),
+    (SELECT id FROM tracks where name='Coding'),
+    5,
+    1
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
-    2
+    (SELECT id FROM tracks where name='Kaizen'),
+    6,
+    4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    7,
+    4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    8,
+    3
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    9,
+    0
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    10,
+    0
 );
 
 INSERT INTO feedback (track_id, assessment_id, feedback, examples, recommendations) VALUES (
@@ -140,14 +189,63 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Coding'),
     2,
-    3
+    5
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Coding'),
+    3,
+    4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Coding'),
+    4,
+    2
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Coding'),
+    5,
+    1
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
-    1,
+    6,
+    5
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    7,
     4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    8,
+    4
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    9,
+    0
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    10,
+    0
 );
 
 INSERT INTO feedback (track_id, assessment_id, feedback, examples, recommendations) VALUES (

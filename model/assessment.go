@@ -12,7 +12,7 @@ type Assessment struct {
 	CreatedAt  time.Time `sql:"created_at" json:"createdAt"`
 
 	Reviewer *User    `json:"reviewer"`
-	Scores   []*Score `json:"scores"`
+	Scores   []*Score `json:"tracks"`
 }
 
 type Assessments []*Assessment

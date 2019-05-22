@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/axiomzen/beanstalks-api/model"
+	"github.com/gorilla/mux"
 )
 
 type getAssessmentsResponse struct {
@@ -14,9 +15,9 @@ type getAssessmentsResponse struct {
 }
 
 func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
-	userID, err := strconv.Atoi(req.URL.Query().Get("user_id"))
+	userID, err := strconv.Atoi(mux.Vars(req)["id"])
 	if err != nil {
-		s.log.WithError(err).Error("invalid user_id in request")
+		s.log.WithError(err).Error("invalid id in request")
 		res.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -63,7 +64,6 @@ type scorePayload struct {
 }
 
 type assessmentPayload struct {
-	UserID     int    `json:"userId"`
 	ReviewerID int    `json:"reviewerId"`
 	State      string `json:"state"`
 
@@ -75,6 +75,13 @@ type postAssessmentRequest struct {
 }
 
 func (s *Server) postAssessment(res http.ResponseWriter, req *http.Request) {
+	userID, err := strconv.Atoi(mux.Vars(req)["id"])
+	if err != nil {
+		s.log.WithError(err).Error("invalid id in request")
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	assessmentReq := &postAssessmentRequest{}
 	if err := json.NewDecoder(req.Body).Decode(assessmentReq); err != nil {
 		s.log.WithError(err).Error("failed to decode assessment in request body")
@@ -84,7 +91,7 @@ func (s *Server) postAssessment(res http.ResponseWriter, req *http.Request) {
 
 	// create the assessment
 	assessment := &model.Assessment{
-		UserID:     assessmentReq.Assessment.UserID,
+		UserID:     userID,
 		ReviewerID: assessmentReq.Assessment.ReviewerID,
 		State:      assessmentReq.Assessment.State,
 	}

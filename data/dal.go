@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/axiomzen/beanstalks-api/config"
@@ -13,6 +14,14 @@ import (
 // database. This is just a wrapper around the PG database object.
 type DAL struct {
 	db orm.DB
+}
+
+type dbLogger struct{}
+
+func (d dbLogger) BeforeQuery(q *pg.QueryEvent) {}
+
+func (d dbLogger) AfterQuery(q *pg.QueryEvent) {
+	fmt.Println(q.FormattedQuery())
 }
 
 // New returns a new DAL instance based on a configuration object.
@@ -28,6 +37,8 @@ func New(c *config.Config) *DAL {
 	}
 
 	db := pg.Connect(opts)
+	// For debugging
+	// db.AddQueryHook(dbLogger{})
 	dal := &DAL{db}
 
 	if err := dal.Ping(); err != nil {
