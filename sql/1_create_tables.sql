@@ -3,6 +3,7 @@ CREATE TABLE users (
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     hashed_password TEXT NOT NULL,
+    role TEXT DEFAULT 'user',
     tags TEXT[],
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (now() at time zone 'utc')
 );

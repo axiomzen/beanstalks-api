@@ -9,6 +9,7 @@ type User struct {
 	Name           string    `sql:"name" json:"name"`
 	Email          string    `sql:"email" json:"email"`
 	HashedPassword string    `sql:"hashed_password" json:"-"`
+	Role           string    `sql:"role" json:"role"`
 	Tags           []string  `sql:",array" json:"tags"`
 	CreatedAt      time.Time `sql:"created_at" json:"createdAt"`
 }

@@ -11,8 +11,7 @@ type Assessment struct {
 	State      string    `sql:"state" json:"state"`
 	CreatedAt  time.Time `sql:"created_at" json:"createdAt"`
 
-	User     *User
-	Reviewer *User
+	Reviewer *User `json:"reviewer"`
 }
 
 type Assessments []*Assessment
