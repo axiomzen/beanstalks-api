@@ -21,3 +21,8 @@ func (dal *DAL) CreateAssessment(assessment *model.Assessment) error {
 func (dal *DAL) GetAssessmentByPK(assessment *model.Assessment) error {
 	return dal.db.Model(assessment).WherePK().Select()
 }
+
+func (dal *DAL) UpdateAssessmentByPK(assessment *model.Assessment) error {
+	_, err := dal.db.Model(assessment).WherePK().UpdateNotNull()
+	return err
+}

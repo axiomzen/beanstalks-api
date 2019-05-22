@@ -38,7 +38,7 @@ func New(c *config.Config) *DAL {
 
 	db := pg.Connect(opts)
 	// For debugging
-	// db.AddQueryHook(dbLogger{})
+	db.AddQueryHook(dbLogger{})
 	dal := &DAL{db}
 
 	if err := dal.Ping(); err != nil {

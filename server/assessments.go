@@ -67,7 +67,7 @@ type assessmentPayload struct {
 	ReviewerID int    `json:"reviewerId"`
 	State      string `json:"state"`
 
-	Scores []*scorePayload `json:"scores"`
+	Scores []*scorePayload `json:"tracks"`
 }
 
 type postAssessmentRequest struct {
@@ -77,7 +77,7 @@ type postAssessmentRequest struct {
 func (s *Server) postAssessment(res http.ResponseWriter, req *http.Request) {
 	userID, err := strconv.Atoi(mux.Vars(req)["id"])
 	if err != nil {
-		s.log.WithError(err).Error("invalid id in request")
+		s.log.WithError(err).Error("invalid user ID in request")
 		res.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -123,4 +123,50 @@ func (s *Server) postAssessment(res http.ResponseWriter, req *http.Request) {
 	}
 
 	res.WriteHeader(http.StatusCreated)
+}
+
+func (s *Server) putAssessment(res http.ResponseWriter, req *http.Request) {
+	assessmentID, err := strconv.Atoi(mux.Vars(req)["assessmentId"])
+	if err != nil {
+		s.log.WithError(err).Error("invalid assessment ID in request")
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	assessmentReq := &postAssessmentRequest{}
+	if err := json.NewDecoder(req.Body).Decode(assessmentReq); err != nil {
+		s.log.WithError(err).Error("failed to decode assessment in request body")
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// update the assessment
+	assessment := &model.Assessment{
+		ID:         assessmentID,
+		ReviewerID: assessmentReq.Assessment.ReviewerID,
+		State:      assessmentReq.Assessment.State,
+	}
+
+	if err := s.dal.UpdateAssessmentByPK(assessment); err != nil {
+		s.log.WithError(err).Error("failed to create or update assessment")
+		res.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// update scores
+	for _, score := range assessmentReq.Assessment.Scores {
+		updatedScore := &model.Score{
+			AssessmentID: assessmentID,
+			TrackID:      score.TrackID,
+			StageID:      score.StageID,
+			Score:        score.Score,
+		}
+		if err := s.dal.UpdateScoreByPK(updatedScore); err != nil {
+			s.log.WithError(err).Error("failed to update score for assessment")
+			res.WriteHeader(http.StatusBadRequest)
+			return
+		}
+	}
+
+	res.WriteHeader(http.StatusOK)
 }
