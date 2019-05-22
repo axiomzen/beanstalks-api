@@ -29,11 +29,11 @@ type trackResPayload struct {
 }
 
 type assessmentResPayload struct {
-	ID         int       `json:"id"`
-	UserID     int       `json:"userId"`
-	ReviewerID int       `json:"reviewerId"`
-	State      string    `json:"state"`
-	CreatedAt  time.Time `json:"createdAt"`
+	ID        int         `json:"id"`
+	UserID    int         `json:"userId"`
+	Reviewer  *model.User `json:"reviewer"`
+	State     string      `json:"state"`
+	CreatedAt time.Time   `json:"createdAt"`
 
 	Tracks []*trackResPayload `json:"tracks"`
 }
@@ -82,11 +82,11 @@ func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
 	assessmentsPayloads := []assessmentResPayload{}
 	for _, a := range *assessments {
 		arp := assessmentResPayload{
-			ID:         a.ID,
-			UserID:     a.UserID,
-			ReviewerID: a.ReviewerID,
-			State:      a.State,
-			CreatedAt:  a.CreatedAt,
+			ID:        a.ID,
+			UserID:    a.UserID,
+			Reviewer:  a.Reviewer,
+			State:     a.State,
+			CreatedAt: a.CreatedAt,
 		}
 
 		// fill in tracks for assessment
