@@ -4,14 +4,43 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/axiomzen/beanstalks-api/model"
 	"github.com/gorilla/mux"
 )
 
+type stageResPayload struct {
+	ID          int    `sql:",pk" json:"id"`
+	TrackID     int    `sql:"track_id" json:"trackId"`
+	Description string `sql:"description" json:"description"`
+	Level       int    `json:"level"`
+
+	Score int `json:"score"`
+}
+
+type trackResPayload struct {
+	ID          int      `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Tags        []string `json:"tags"`
+
+	Stages []*stageResPayload `json:"stages"`
+}
+
+type assessmentResPayload struct {
+	ID         int       `json:"id"`
+	UserID     int       `json:"userId"`
+	ReviewerID int       `json:"reviewerId"`
+	State      string    `json:"state"`
+	CreatedAt  time.Time `json:"createdAt"`
+
+	Tracks []*trackResPayload `json:"tracks"`
+}
+
 type getAssessmentsResponse struct {
-	User        *model.User        `json:"user"`
-	Assessments *model.Assessments `json:"assessments"`
+	User        *model.User            `json:"user"`
+	Assessments []assessmentResPayload `json:"assessments"`
 }
 
 func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
@@ -49,9 +78,55 @@ func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
 		a.Scores = append(a.Scores, *scores...)
 	}
 
+	// create response payload
+	assessmentsPayloads := []assessmentResPayload{}
+	for _, a := range *assessments {
+		arp := assessmentResPayload{
+			ID:         a.ID,
+			UserID:     a.UserID,
+			ReviewerID: a.ReviewerID,
+			State:      a.State,
+			CreatedAt:  a.CreatedAt,
+		}
+
+		// fill in tracks for assessment
+		tracksByID := map[int]*trackResPayload{}
+
+		for _, score := range a.Scores {
+			// add all tracks
+			track := &trackResPayload{
+				ID:          score.Track.ID,
+				Name:        score.Track.Name,
+				Description: score.Track.Description,
+				Tags:        score.Track.Tags,
+			}
+			tracksByID[track.ID] = track
+		}
+
+		for _, score := range a.Scores {
+			// add stages for each track, with scores
+			stage := &stageResPayload{
+				ID:          score.Stage.ID,
+				TrackID:     score.Stage.TrackID,
+				Description: score.Stage.Description,
+				Level:       score.Stage.Level,
+				Score:       score.Score,
+			}
+			track := tracksByID[stage.TrackID]
+			track.Stages = append(track.Stages, stage)
+		}
+
+		for _, track := range tracksByID {
+			// add the track to the assessment
+			arp.Tracks = append(arp.Tracks, track)
+		}
+
+		assessmentsPayloads = append(assessmentsPayloads, arp)
+	}
+
 	payload := &getAssessmentsResponse{
 		User:        user,
-		Assessments: assessments,
+		Assessments: assessmentsPayloads,
 	}
 	res.WriteHeader(http.StatusOK)
 	json.NewEncoder(res).Encode(payload)
