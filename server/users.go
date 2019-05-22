@@ -112,3 +112,21 @@ func (s *Server) me(res http.ResponseWriter, req *http.Request) {
 	res.WriteHeader(http.StatusOK)
 	json.NewEncoder(res).Encode(user)
 }
+
+type getUsersResponse struct {
+	Users *model.Users `json:"users"`
+}
+
+func (s *Server) getUsers(res http.ResponseWriter, req *http.Request) {
+	users := &model.Users{}
+	if err := s.dal.GetAllUsers(users); err != nil {
+		s.log.WithError(err).Error("failed to fetch users from DB")
+		res.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(&getUsersResponse{
+		Users: users,
+	})
+}
