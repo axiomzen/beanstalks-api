@@ -28,17 +28,13 @@ func New(c *config.Config) *Server {
 	}
 
 	// Attatch request handlers
-	r.HandleFunc("/api/users", s.getUser).Methods("GET")
-	r.HandleFunc("/signin", data.Signin).Methods("POST")
+	r.HandleFunc("/me", wrap(s.me, s.authenticate, s.logIt, s.recover)).Methods("GET")
+	r.HandleFunc("/signup", wrap(s.signUp, s.logIt, s.recover)).Methods("POST")
+	r.HandleFunc("/signin", wrap(s.signIn, s.logIt, s.recover)).Methods("POST")
+
 	return s
 }
 
 func (s *Server) Start() {
 	http.ListenAndServe(fmt.Sprintf(":%s", s.config.Port), s.router)
-}
-
-func (s *Server) getUser(res http.ResponseWriter, req *http.Request) {
-	// TODO
-	s.log.Infof("received request %v", req)
-	res.WriteHeader(http.StatusOK)
 }
