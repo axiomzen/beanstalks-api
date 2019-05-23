@@ -1,11 +1,13 @@
 -- set up tracks
-INSERT INTO tracks (name, tags) VALUES (
+INSERT INTO tracks (name, description, tags) VALUES (
     'Coding',
+    'Ability to write good code.',
     '{"engineer"}'
 );
 
-INSERT INTO tracks (name, tags) VALUES (
+INSERT INTO tracks (name, description, tags) VALUES (
     'Kaizen',
+    'Continuous self improvement.',
     '{"all"}'
 );
 
