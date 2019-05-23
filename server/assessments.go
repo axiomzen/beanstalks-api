@@ -217,6 +217,10 @@ func (s *Server) putAssessment(res http.ResponseWriter, req *http.Request) {
 		s.log.WithError(err).Error("failed to decode assessment in request body")
 		res.WriteHeader(http.StatusBadRequest)
 		return
+	} else if assessmentReq.Assessment == nil {
+		s.log.WithError(err).Error("received invalid request body")
+		res.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
 	// update the assessment
