@@ -75,7 +75,7 @@ INSERT INTO stages (track_id, description, level) VALUES (
 
 INSERT INTO stages (track_id, description, level) VALUES (
     (SELECT id FROM tracks where name='Kaizen'),
-    'Designs improvement plans and sets targets and priorities for teams and individuals. Productively ""plugged in"" to relevant areas in the industry, helping draw from best-in-class practices to improve the discipline company-wide',
+    'Designs improvement plans and sets targets and priorities for teams and individuals. Productively plugged in to relevant areas in the industry, helping draw from best-in-class practices to improve the discipline company-wide',
     5
 );
 
