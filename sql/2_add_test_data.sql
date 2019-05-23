@@ -42,6 +42,12 @@ INSERT INTO stages (track_id, description, level) VALUES (
     5
 );
 
+INSERT INTO stages (track_id, description, level) VALUES (
+    (SELECT id FROM tracks where name='Coding'),
+    'Develops DSLs and metaprogramming patterns to increase the productivity of teams. Positions the company to capitalize on future language, platform, and tooling opportunities',
+    6
+);
+
 -- set up stages for Kaizen track
 INSERT INTO stages (track_id, description, level) VALUES (
     (SELECT id FROM tracks where name='Kaizen'),
@@ -71,6 +77,12 @@ INSERT INTO stages (track_id, description, level) VALUES (
     (SELECT id FROM tracks where name='Kaizen'),
     'Designs improvement plans and sets targets and priorities for teams and individuals. Productively ""plugged in"" to relevant areas in the industry, helping draw from best-in-class practices to improve the discipline company-wide',
     5
+);
+
+INSERT INTO stages (track_id, description, level) VALUES (
+    (SELECT id FROM tracks where name='Kaizen'),
+    'Globally-recognized as pushing forward the entire discipline, innovating on the strategy and tactics that underlie the impact we are trying to create. Proactively spreads Kaizen throughout the entire company',
+    6
 );
 
 -- create users
@@ -134,9 +146,9 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
-    (SELECT id FROM tracks where name='Kaizen'),
+    (SELECT id FROM tracks where name='Coding'),
     6,
-    4
+    0
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
@@ -150,20 +162,34 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
     (SELECT id FROM tracks where name='Kaizen'),
     8,
-    3
+    4
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
     (SELECT id FROM tracks where name='Kaizen'),
     9,
-    0
+    3
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     1,
     (SELECT id FROM tracks where name='Kaizen'),
     10,
+    0
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    11,
+    0
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    1,
+    (SELECT id FROM tracks where name='Kaizen'),
+    12,
     0
 );
 
