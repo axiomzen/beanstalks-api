@@ -254,27 +254,41 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     7,
-    3
+    4
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     8,
-    2
+    3
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     9,
-    0
+    2
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     10,
+    1
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    11,
+    0
+);
+
+INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
+    2,
+    (SELECT id FROM tracks where name='Kaizen'),
+    12,
     0
 );
 
