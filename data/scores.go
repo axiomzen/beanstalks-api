@@ -18,6 +18,6 @@ func (dal *DAL) CreateScore(score *model.Score) error {
 }
 
 func (dal *DAL) UpdateScoreByPK(score *model.Score) error {
-	_, err := dal.db.Model(score).WherePK().UpdateNotNull()
+	_, err := dal.db.Model(score).WherePK().Update()
 	return err
 }
