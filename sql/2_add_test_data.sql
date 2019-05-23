@@ -212,14 +212,14 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Coding'),
     1,
-    5
+    4
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Coding'),
     2,
-    5
+    4
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
@@ -247,21 +247,21 @@ INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     6,
-    5
+    4
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     7,
-    4
+    3
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
     2,
     (SELECT id FROM tracks where name='Kaizen'),
     8,
-    4
+    2
 );
 
 INSERT INTO scores (assessment_id, track_id, stage_id, score) VALUES (
