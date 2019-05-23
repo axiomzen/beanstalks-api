@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"net/http"
+	"sort"
 	"strconv"
 	"time"
 
@@ -117,7 +118,10 @@ func (s *Server) getAssessments(res http.ResponseWriter, req *http.Request) {
 		}
 
 		for _, track := range tracksByID {
-			// add the track to the assessment
+			// sort the stages in the track add it to the assessment
+			sort.Slice(track.Stages, func(i, j int) bool {
+				return track.Stages[i].Level < track.Stages[j].Level
+			})
 			arp.Tracks = append(arp.Tracks, track)
 		}
 
